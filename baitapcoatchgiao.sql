@@ -232,14 +232,15 @@ having count(od.productid)>=3;
 
 -- 40. Tìm khách hàng (MAKH, HOTEN) có số lần mua hàng nhiều nhất.
 
-create view soluonghoadon as
-    select c.id,c.name,count(o.id) as soluong
-from customer c,`order` o where c.id = o.customerId
+                  
+ create view solanmuamax as
+select c.id, c.name, count(od.orderId) as solanmua
+from demo2006.customer c join demo2006.order o join demo2006.orderdetail od on c.id = o.customerId and o.id = od.orderId
 group by c.id;
-
-select id,name from customer where id in
-(select id from soluonghoadon where soluong =
-                                    (select  max((soluong)) from  soluonghoadon));
+select solanmuamax.id, solanmuamax.name, solanmuamax.solanmua
+from solanmuamax
+where solanmuamax.solanmua = (select max(solanmuamax.solanmua) from solanmuamax);
+                                   
 -- 41. Tháng mấy trong năm 2006, doanh số bán hàng cao nhất?
 
 select month(time) from total where total = (select max(total) from total where year(time)=2006);
