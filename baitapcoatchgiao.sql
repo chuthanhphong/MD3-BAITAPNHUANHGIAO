@@ -242,8 +242,7 @@ select id,name from customer where id in
                                     (select  max((soluong)) from  soluonghoadon));
 -- 41. Tháng mấy trong năm 2006, doanh số bán hàng cao nhất?
 
-select month(total.time) from total where total =
-                                          (select min(total) from total);
+select month(time) from total where total = (select max(total) from total where year(time)=2006);
 
 -- 42. Tìm sản phẩm (MASP, TENSP) có tổng số lượng bán ra thấp nhất trong năm 2006
 
