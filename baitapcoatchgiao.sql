@@ -196,7 +196,7 @@ create view sanphamchuM as
 select  Max(price) as max , Min(price) as min,avg(price) as avg from sanphamchuM ;
 
 -- 35. Tính doanh thu bán hàng mỗi ngày.
-select day(time) as day ,MONTH(time) as mouth,YEAR(time),sum(total) as total from total group by day(time);
+select day(time) as day ,MONTH(time) as mouth,YEAR(time),sum(total) as total from total group by time;
 
 -- 36. Tính tổng số lượng của từng sản phẩm bán ra trong tháng 10/2006.
 
