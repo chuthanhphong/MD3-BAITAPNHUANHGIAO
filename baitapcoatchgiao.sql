@@ -221,7 +221,14 @@ having count(od.productId) >=4;
 
 select o.id from `order` o,orderdetail od,product p
 where o.id = od.orderId and p.price < 300  group by od.orderId
-having count(od.productId)=3;
+having count(od.productId)>=3;
+
+select od.orderid, count(od.productid)
+from orderdetail od
+join product p on p.id=od.productid
+where p.price<300
+group by od.orderid 
+having count(od.productid)>=3;
 
 -- 40. Tìm khách hàng (MAKH, HOTEN) có số lần mua hàng nhiều nhất.
 
