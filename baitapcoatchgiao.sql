@@ -132,7 +132,10 @@ select c.id,c.name
 from customer c,`order` o
 where o.customerid=c.id
   and o.id =(
-    select id from total where total>=all(select total from total where year(time)=2006));
+    select id from total where total >= all(select total from total where year(time)=2006));
+    
+
+
 
 -- 27. In ra danh sách 3 khách hàng (MAKH, HOTEN) mua nhiều hàng nhất (tính theo số lượng).
 
@@ -142,7 +145,6 @@ order by tongsohang desc limit 3 ;
 
 -- 28. In ra danh sách các sản phẩm (MASP, TENSP) có giá bán bằng 1 trong 3 mức giá cao nhất.
 -- không biết làm ghi lại đáp án của Coatch;
-
 
 create view top3p as
 select price
@@ -171,12 +173,20 @@ select * from product where price <= @top1 and price >= @top3;
 select * from product where price <=@top1 and price >=@top3 and product.name like 'M%';
 
 -- 32. Tính tổng số sản phẩm giá <300.
-select sum(quantity) as tongsanpham
+-- tổng tất cả các sản phẩm :
+select product.price, sum(quantity) as tongsanpham
 from product  where price < 300;
+-- Tổng từng loại sản phẩm
+select count(id) as tongcacloai from product where price <300;
 
 -- 33. Tính tổng số sản phẩm theo từng giá.
 
+-- Tổng tất cả sản phẩm
 select product.name, sum(quantity) as tongsanpham
+from product group by price;
+
+-- Tổng từng sản phẩm theo giá
+select product.price , product.name, count(product.quantity) as tongcacsanpham
 from product group by price;
 
 -- 34. Tìm giá bán cao nhất, thấp nhất, trung bình của các sản phẩm bắt đầu bằng chữ M.
